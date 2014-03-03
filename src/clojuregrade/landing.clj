@@ -72,15 +72,15 @@
     [:p error]
     [:hr]
    (form-to [:post "/"]
-    [:h3 "WEIGHTS:    (e.g. quizzes 25%, homework 40%, exams 35%)"
+    [:h3 "WEIGHTS:    (e.g. quiz 25%, homework 40%, exam 35%)"
     [:br]
      (text-area {:cols 30 :placeholder "[40 10 50] <- adds up to 100%"} "weights" weights)]
-    [:h3 "GRADES:    (e.g. Johnny: quizzes 75%, homework 87%, exams 68% ... )"
+    [:h3 "GRADES:    (e.g. Johnny: quiz 75%, homework 87%, exam 68% ... )"
     [:br]
     (text-area {:rows 15 :cols 30 :placeholder "[[89 78 63] [76 58 98] ...]
 
 
-                        (Each grade corresponds to one of the weights above, so order is important. You can copy and paste directly from your excel file but don't forget the brackets!)" } "grades" grades)]
+                        (Each grade corresponds to one of the weights above, so order is important. You can resize this window, copy and paste directly from your excel file but don't forget the brackets!)" } "grades" grades)]
      (submit-button "process"))]))
 
 

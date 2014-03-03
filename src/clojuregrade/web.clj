@@ -26,6 +26,7 @@
   (ANY "/repl" {:as req}
        (drawbridge req))
   (GET "/" [] (landing/home))
+  (route/resources "/")
   (POST "/" [weights grades] (landing/processed weights grades))
   (ANY "*" []
        (route/not-found (slurp (io/resource "404.html")))))

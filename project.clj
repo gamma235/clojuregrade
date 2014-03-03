@@ -2,7 +2,7 @@
   :description "FIXME: write description"
   :url "http://clojuregrade.herokuapp.com"
   :license {:name "FIXME: choose"
-            :url "http://example.com/FIXME"}
+            :url "https://frozen-hamlet-2018.herokuapp.com/"}
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [compojure "1.1.1"]
                  [ring/ring-jetty-adapter "1.1.0"]

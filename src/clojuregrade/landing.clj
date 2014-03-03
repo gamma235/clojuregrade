@@ -10,6 +10,7 @@
             [hiccup.core :refer :all]
             [hiccup.form :refer :all]
             [hiccup.element :refer :all]
+            [hiccup.page :refer [html5 include-css]]
             [clojure.edn]))
 
 
@@ -62,12 +63,10 @@
      (map int)))
 
 (defn home [& [weights grades error]]
-  (html
-    [:link {:rel  "stylesheet"
-            :href "/home.css"
-            :type "text/css"}]
+  (html5
     [:head
-    [:title "Home | Clojuregrade"]]
+    [:title "Home | Clojuregrade"]
+     (include-css "/home.css")]
     [:body
     [:h1 [:img {:src "http://tgoossens.files.wordpress.com/2013/02/icon.png" :height "40px"}] "Clojuregrade"]
     [:p error]

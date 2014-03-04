@@ -1,9 +1,41 @@
 body {
-    background-color: #FFFFEB;
+  background-color: #FAF9F0;
 }
 
-h1 {
-    font-family: Garamond, helvetica;
-    color: #29507A;
+div {
+  background-color: #D1EBF0;
+}
+
+h3 {
+  font-family: verdana helveltica;
+  color: #7E762A;
+  text-indent: 20px;
 
 }
+
+#weights {
+  border-radius: 5px;
+  border: 2px solid;
+  border-color: gray black;
+  margin: 20px
+}
+
+#grades {
+  border-radius: 5px;
+  border: 2px solid;
+  border-color: gray black;
+  margin: 20px;
+}
+
+#process {
+  border-radius: 10px;
+  border: 2px solid;
+  border-color: gray black;
+  margin:20px;
+
+}
+
+footer {
+  margin: 50px;
+}
+

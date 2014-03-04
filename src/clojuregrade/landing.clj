@@ -66,22 +66,30 @@
   (html5
     [:head
     [:title "Home | Clojuregrade"]
-     (include-css "/home.css")]
+    (include-css "/home.css")]
     [:body
-    [:h1 [:img {:src "http://tgoossens.files.wordpress.com/2013/02/icon.png" :height "40px"}] "Clojuregrade"]
+    [:script {:src "//code.jquery.com/jquery-1.10.2.min.js"}]
+    [:script {:src "http://s3.amazonaws.com/codecademy-content/courses/hour-of-code/js/alphabet.js"}]
+    [:canvas {:id "myCanvas"}]
+    [:script {:src "http://s3.amazonaws.com/codecademy-content/courses/hour-of-code/js/bubbles.js"}]
+    [:script {:src "main.js"}]
     [:p error]
-    [:hr]
+    [:div
+    [:br]
    (form-to [:post "/"]
     [:h3 "WEIGHTS:    (e.g. quiz 25%, homework 40%, exam 35%)"
     [:br]
-     (text-area {:cols 30 :placeholder "[40 10 50] <- adds up to 100%"} "weights" weights)]
-    [:h3 "GRADES:    (e.g. Johnny: quiz 75%, homework 87%, exam 68% ... )"
+
+     (text-area {:cols 30 :placeholder "[25 40 35] <- adds up to 100%"} "weights" weights)]
+    [:br]
+
+    [:h3"GRADES:    (e.g. Johnny: quiz 75%, homework 87%, exam 68% ... )"
     [:br]
     (text-area {:rows 15 :cols 30 :placeholder "[[89 78 63] [76 58 98] ...]
 
-
                         (Each grade corresponds to one of the weights above, so order is important. You can resize this window, copy and paste directly from your excel file but don't forget the brackets!)" } "grades" grades)]
-     (submit-button "process"))]))
+     (submit-button "process"))]
+     [:footer [:a {:href "https://github.com/gamma235/clojuregrade"} "source-code"]]]))
 
 
  (defn processed [weights grades]

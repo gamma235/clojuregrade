@@ -92,21 +92,23 @@
      [:footer [:a {:href "https://github.com/gamma235/clojuregrade"} "source-code"]]]))
 
 
- (defn processed [weights grades]
+(defn processed [weights grades]
   (cond
    (empty? weights)
-   (home weights grades "You forgot to add the weights!")
+   (home weights grades "Did you enter data into each field?")
    (empty? grades)
-   (home weights grades "You forgot to add the grades!")
-  :else
-  (do
-  (html
-   [:h2 "These are your final grades."]
-   [:hr]
-   [:p
-    (apply str (interpose " "
-          (process-grades (clojure.edn/read-string weights) (clojure.edn/read-string grades))))
-    ]))))
+   (home weights grades "Did you enter data into each field?")
+   (false? (= 100 (reduce + (clojure.edn/read-string weights))))
+   (home weights grades "Your weights don't add up to 100%.")
+   :else
+   (do
+     (html
+      [:h2 "These are your final grades."]
+      [:hr]
+      [:p
+       (apply str (interpose " "
+                             (process-grades (clojure.edn/read-string weights) (clojure.edn/read-string grades))))
+       ]))))
 
 (defroutes app
   (GET "/landing" []
@@ -124,4 +126,3 @@
            {:status 500
             :headers {"Content-Type" "text/html"}
             :body (slurp (io/resource "500.html"))}))))
-

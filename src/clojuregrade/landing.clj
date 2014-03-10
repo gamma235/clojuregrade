@@ -11,9 +11,7 @@
             [hiccup.form :refer :all]
             [hiccup.element :refer :all]
             [hiccup.page :refer [html5 include-css]]
-            [clojure.edn]
-            [clojure.data.csv :as csv]
-            [clojure.java.io :as io]))
+            [clojure.edn]))
 
 
 (defn percentify
@@ -110,8 +108,8 @@
       [:h2 "These are your final grades."]
       [:hr]
       [:p
-          (interpose [:br]
-       (process-grades (clojure.edn/read-string weights) (clojure.edn/read-string grades)))
+       (interpose [:br]
+                  (process-grades (clojure.edn/read-string weights) (clojure.edn/read-string grades)))
        ]))))
 
 (defroutes app

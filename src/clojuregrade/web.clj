@@ -13,6 +13,15 @@
             [environ.core :refer [env]]
             [clojuregrade.landing :as landing]))
 
+(defn- authenticated? [user pass]
+  ;; TODO: heroku config:add REPL_USER=[...] REPL_PASSWORD=[...]
+  (= [user pass] [(env :repl-user false) (env :repl-password false)]))
+
+(def ^:private drawbridge
+  (-> (drawbridge/ring-handler)
+      (session/wrap-session)
+      (basic/wrap-basic-authentication authenticated?)))
+
 (defroutes app
   (ANY "/repl" {:as req}
        (drawbridge req))
@@ -43,14 +52,6 @@
 
 
 ;; For interactive development:
-(.stop server)
-(def server (-main))
+;; (.stop server)
+;; (def server (-main))
 
-(defn- authenticated? [user pass]
-  ;; TODO: heroku config:add REPL_USER=[...] REPL_PASSWORD=[...]
-  (= [user pass] [(env :repl-user false) (env :repl-password false)]))
-
-(def ^:private drawbridge
-  (-> (drawbridge/ring-handler)
-      (session/wrap-session)
-      (basic/wrap-basic-authentication authenticated?)))

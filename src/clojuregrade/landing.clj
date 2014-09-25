@@ -80,7 +80,7 @@
     [:br]
     (text-area {:rows 15 :cols 30 :placeholder "[[89 78 63] [76 58 98] ...]
 
-                        (Each grade is out of 100% and corresponds to one of the weights above, so order is important. You can resize this window, copy and paste directly from your excel file but don't forget the brackets!)" } "grades" grades)]
+Each grade is out of 100% and corresponds to one of the weights above, so order is important. You can resize this window, copy and paste directly from your excel file but don't forget the brackets!" } "grades" grades)]
      (submit-button "process"))]
      [:footer [:a {:href "https://github.com/gamma235/clojuregrade"} "source-code"]]]))
 
@@ -105,4 +105,6 @@
       [:p
        (interpose [:br]
                   (process-grades (clojure.edn/read-string weights) (clojure.edn/read-string grades)))
+       (form-to [:get "/"]
+                (submit-button "home"))
        ]))))

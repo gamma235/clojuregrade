@@ -54,7 +54,7 @@
 
 ;; rendering functions
 (defn home
-  "Renders home page at '/' "
+  "Renders home page at GET '/' "
   [& [weights grades error]]
   (html5
     [:head
@@ -86,7 +86,7 @@
 
 
 (defn processed
-  "processes input data and renders results page at '/' "
+  "processes input data and renders results page at POST '/' "
   [weights grades]
   (cond
    (empty? weights)

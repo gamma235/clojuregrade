@@ -13,15 +13,6 @@
             [environ.core :refer [env]]
             [clojuregrade.landing :as landing]))
 
-(defn- authenticated? [user pass]
-  ;; TODO: heroku config:add REPL_USER=[...] REPL_PASSWORD=[...]
-  (= [user pass] [(env :repl-user false) (env :repl-password false)]))
-
-(def ^:private drawbridge
-  (-> (drawbridge/ring-handler)
-      (session/wrap-session)
-      (basic/wrap-basic-authentication authenticated?)))
-
 (defroutes app
   (ANY "/repl" {:as req}
        (drawbridge req))
@@ -34,10 +25,10 @@
 (defn wrap-error-page [handler]
   (fn [req]
     (try (handler req)
-         (catch Exception e
-           {:status 500
-            :headers {"Content-Type" "text/html"}
-            :body (slurp (io/resource "500.html"))}))))
+      (catch Exception e
+        {:status 500
+         :headers {"Content-Type" "text/html"}
+         :body (slurp (io/resource "500.html"))}))))
 
 (defn -main [& [port]]
   (let [port (Integer. (or port (env :port) 5000))
@@ -50,6 +41,16 @@
                          (site {:session {:store store}}))
                      {:port port :join? false})))
 
+
 ;; For interactive development:
-;; (.stop server)
-;; (def server (-main))
+(.stop server)
+(def server (-main))
+
+(defn- authenticated? [user pass]
+  ;; TODO: heroku config:add REPL_USER=[...] REPL_PASSWORD=[...]
+  (= [user pass] [(env :repl-user false) (env :repl-password false)]))
+
+(def ^:private drawbridge
+  (-> (drawbridge/ring-handler)
+      (session/wrap-session)
+      (basic/wrap-basic-authentication authenticated?)))

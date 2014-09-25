@@ -1,8 +1,8 @@
 (defproject clojuregrade "1.0.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://clojuregrade.herokuapp.com"
+  :description "website to help teachers calculate their grades"
+  :url "https://frozen-hamlet-2018.herokuapp.com/"
   :license {:name "FIXME: choose"
-            :url "https://frozen-hamlet-2018.herokuapp.com/"}
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [compojure "1.1.1"]
                  [ring/ring-jetty-adapter "1.1.0"]

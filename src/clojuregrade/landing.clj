@@ -13,7 +13,7 @@
             [hiccup.page :refer [html5 include-css]]
             [clojure.edn]))
 
-
+;; util functions to process the incoming grades
 (defn percentify
   "adjust raw score to percentile"
   [raw percentile]
@@ -42,17 +42,6 @@
 (defn class-average [grades]
   (float (average grades)))
 
-(defn bellify
-  "augemnts a single grade on a curve function. The size of the curve depends on the coefficient and the distance from the class-average."
-  [coef grade grades]
-  (+ grade (* coef (- grade (class-average grades)))))
-
-(defn bell-curve
-  "This function applies the curve to every grade in a sequence."
-  [grades coef]
-  (->> grades (map (partial #(bellify coef % grades)))))
-
-
 (defn process-grades
   "Takes user input from home's form-to function and processes it into the final grades list"
   [weights grades]
@@ -62,7 +51,11 @@
      (map round)
      (map int)))
 
-(defn home [& [weights grades error]]
+
+;; rendering functions
+(defn home
+  "Renders home page at '/' "
+  [& [weights grades error]]
   (html5
     [:head
     [:title "Home | Clojuregrade"]
@@ -92,7 +85,9 @@
      [:footer [:a {:href "https://github.com/gamma235/clojuregrade"} "source-code"]]]))
 
 
-(defn processed [weights grades]
+(defn processed
+  "processes input data and renders results page at '/' "
+  [weights grades]
   (cond
    (empty? weights)
    (home weights grades "Did you enter data into each field?")
@@ -111,20 +106,3 @@
        (interpose [:br]
                   (process-grades (clojure.edn/read-string weights) (clojure.edn/read-string grades)))
        ]))))
-
-(defroutes app
-  (GET "/landing" []
-       {:status 200
-        :headers {"Content-Type" "text/html"}
-        :body (home)})
-  (POST "/" [weights grades] (processed weights grades))
-  (ANY "*" []
-       (route/not-found (slurp (io/resource "404.html")))))
-
-(defn wrap-error-page [handler]
-  (fn [req]
-    (try (handler req)
-         (catch Exception e
-           {:status 500
-            :headers {"Content-Type" "text/html"}
-            :body (slurp (io/resource "500.html"))}))))
